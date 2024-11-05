@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:appflowy_editor/src/editor/block_component/table_block_component/table_node.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' show parse;
 
@@ -57,7 +56,7 @@ class DocumentHTMLDecoder extends Converter<String, Document> {
         }
         delta.insert(domNode.text);
       } else {
-        Log.editor.debug('Unknown node type: $domNode');
+        AppFlowyEditorLog.editor.debug('Unknown node type: $domNode');
       }
     }
     if (delta.isNotEmpty) {
@@ -78,6 +77,12 @@ class DocumentHTMLDecoder extends Converter<String, Document> {
         return _parseHeadingElement(element, level: 2);
       case HTMLTags.h3:
         return _parseHeadingElement(element, level: 3);
+      case HTMLTags.h4:
+        return _parseHeadingElement(element, level: 4);
+      case HTMLTags.h5:
+        return _parseHeadingElement(element, level: 5);
+      case HTMLTags.h6:
+        return _parseHeadingElement(element, level: 6);
       case HTMLTags.unorderedList:
         return _parseUnOrderListElement(element);
       case HTMLTags.orderedList:
